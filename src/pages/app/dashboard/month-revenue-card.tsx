@@ -1,15 +1,15 @@
 import { useQuery } from '@tanstack/react-query'
 import { DollarSign } from 'lucide-react'
 
-import { getMonthRevunue } from '@/api/get-month-revunue'
+import { getMonthRevenue } from '@/api/get-month-revenue'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 
 import { MetricCardSkeleton } from './metric-card-skeleton'
 
 export function MonthRevenueCard() {
-  const { data: monthRevunue } = useQuery({
-    queryFn: getMonthRevunue,
-    queryKey: ['metrics', 'month-revunue'],
+  const { data: monthRevenue } = useQuery({
+    queryFn: getMonthRevenue,
+    queryKey: ['metrics', 'month-revenue'],
   })
 
   return (
@@ -21,26 +21,26 @@ export function MonthRevenueCard() {
         <DollarSign className="h-4 w-4 text-muted-foreground" />
       </CardHeader>
       <CardContent className="space-y-1">
-        {monthRevunue ? (
+        {monthRevenue ? (
           <>
             <span className="text-2xl font-bold tracking-tight">
-              {(monthRevunue.receipt / 100).toLocaleString('pt-BR', {
+              {(monthRevenue.receipt / 100).toLocaleString('pt-BR', {
                 style: 'currency',
                 currency: 'BRL',
               })}
             </span>
             <p className="text-sm text-muted-foreground">
-              {monthRevunue.diffFromLastMonth >= 0 ? (
+              {monthRevenue.diffFromLastMonth >= 0 ? (
                 <>
                   <span className="text-emerald-500 dark:text-emerald-400">
-                    +{monthRevunue.diffFromLastMonth}%
+                    +{monthRevenue.diffFromLastMonth}%
                   </span>{' '}
                   em relação ao mês passado
                 </>
               ) : (
                 <>
                   <span className="text-orange-500 dark:text-orange-400">
-                    {monthRevunue.diffFromLastMonth}%
+                    {monthRevenue.diffFromLastMonth}%
                   </span>{' '}
                   em relação ao mês passado
                 </>
